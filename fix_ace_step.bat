@@ -3,7 +3,7 @@ cd /d "%~dp0"
 
 set "LOG=%~dp0fix_ace_step.log"
 > "%LOG%" echo ACE-Step 1.5 Fix Log
-> "%LOG%" echo.
+>> "%LOG%" echo.
 
 echo ========================================
 echo  ACE-Step 1.5 - Post-Extraction Fix
