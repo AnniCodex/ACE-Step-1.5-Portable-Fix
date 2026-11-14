@@ -1,0 +1,3 @@
+# Keep Windows line endings for batch files: cmd.exe can misparse labels/goto with LF
+*.bat -text
+*.cmd -text
