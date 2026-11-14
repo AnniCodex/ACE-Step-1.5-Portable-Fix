@@ -1,11 +1,11 @@
 # ACE-Step 1.5 Portable Fix (Windows)
 
 > [!IMPORTANT]
-> **Run `fix_ace_step.bat` as Administrator, right after extracting the official archive and BEFORE launching `start_gradio_ui.bat` for the first time.**
+> **Run `fix_ace_step.bat` right after extracting the official archive and BEFORE launching `start_gradio_ui.bat` for the first time.**
 >
 > 1. Extract `ACE-Step-1.5.7z`.
 > 2. Copy `fix_ace_step.bat` into the extracted root folder (the one that contains `python_embeded`, `.git` and `start_gradio_ui.bat`).
-> 3. Right-click `fix_ace_step.bat` → **Run as administrator**.
+> 3. Double-click `fix_ace_step.bat`. Administrator rights are not needed in most cases (see [Troubleshooting](#troubleshooting)).
 > 4. When it says `=== DONE ===`, close it and start `start_gradio_ui.bat` as usual.
 
 🇮🇹 [Versione italiana più sotto](#italiano)
@@ -63,7 +63,10 @@ Each step is skipped (with a message) if its prerequisite is missing, so the scr
 | Log line | Meaning / fix |
 |---|---|
 | `ERR: no python folder` | The script is not in the ACE-Step root folder. Move it next to `python_embeded` / `python_embedded`. |
-| `ERR: rename failed` | The folder is in use (ACE-Step running, Explorer window open inside it) or you did not run as Administrator. Close everything and retry. |
+| `ERR: rename failed` | The folder is in use (ACE-Step running, an Explorer window open inside it) or your user cannot write there. Close everything and retry; if it still fails, see *Permission errors* below. |
+| `ERR: pip install failed`, `ERR: PyWavelets`, `ERR: reset failed` | Often a permission problem: see *Permission errors* below. |
+
+**Permission errors.** The script only writes inside the ACE-Step folder, so it normally works as a normal user. If you extracted ACE-Step into a protected location (e.g. `C:\Program Files\` or the root of `C:\`), or an antivirus / company policy blocks writes, steps can fail. Best fix: move the folder somewhere your user owns (e.g. `D:\AI\ACE-Step-1.5`) and run the script again. Otherwise, right-click `fix_ace_step.bat` → **Run as administrator**. Note that files created as Administrator belong to the Administrator account, so `start_gradio_ui.bat` may then also need to be run as Administrator.
 | `ERR: git not found` | No `PortableGit` folder and no system git. Install Git for Windows. |
 | `ERR: download failed` | `bootstrap.pypa.io` not reachable (firewall/proxy/antivirus). |
 | `ERR: fetch failed` | GitHub not reachable from git. Check your network, or a global git proxy (`git config --global --get http.proxy`). |
@@ -77,11 +80,11 @@ Each step is skipped (with a message) if its prerequisite is missing, so the scr
 ## Italiano
 
 > [!IMPORTANT]
-> **Esegui `fix_ace_step.bat` come Amministratore subito dopo aver estratto l'archivio ufficiale e PRIMA di avviare `start_gradio_ui.bat` per la prima volta.**
+> **Esegui `fix_ace_step.bat` subito dopo aver estratto l'archivio ufficiale e PRIMA di avviare `start_gradio_ui.bat` per la prima volta.**
 >
 > 1. Estrai `ACE-Step-1.5.7z`.
 > 2. Copia `fix_ace_step.bat` nella cartella principale estratta (quella con `python_embeded`, `.git` e `start_gradio_ui.bat`).
-> 3. Tasto destro su `fix_ace_step.bat` → **Esegui come amministratore**.
+> 3. Doppio clic su `fix_ace_step.bat`. Di solito non servono i permessi di amministratore (vedi sotto).
 > 4. Quando compare `=== DONE ===`, chiudi e avvia `start_gradio_ui.bat` come al solito.
 
 ### A cosa serve
@@ -105,5 +108,9 @@ Il pacchetto portable ufficiale per Windows di ACE-Step 1.5 (`https://files.acem
 Tutto viene scritto anche in `fix_ace_step.log`. Lo script si può rilanciare senza problemi: i passi già a posto vengono saltati.
 
 **Attenzione:** il passo 6 sovrascrive i file sorgente modificati (le modifiche restano recuperabili con `git stash pop`). Modelli, output e file non tracciati non vengono toccati.
+
+### Se qualcosa va storto
+
+Apri `fix_ace_step.log` e guarda le righe `ERR:`. Se un passo fallisce per permessi (es. `ERR: rename failed`, `ERR: pip install failed`, `ERR: reset failed`), di solito la cartella è in un percorso protetto come `C:\Program Files\` o la radice di `C:\`, oppure un antivirus blocca la scrittura. Soluzione migliore: sposta la cartella in un posto tuo (es. `D:\AI\ACE-Step-1.5`) e rilancia lo script. In alternativa: tasto destro su `fix_ace_step.bat` → **Esegui come amministratore**; in quel caso i file creati appartengono all'amministratore e potrebbe servire avviare anche `start_gradio_ui.bat` come amministratore.
 
 Fix non ufficiale, non affiliato al team ACE-Step. Licenza [MIT](LICENSE).
